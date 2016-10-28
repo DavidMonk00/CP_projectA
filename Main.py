@@ -25,9 +25,15 @@ def main():
 def ctest():
     ct.cdll.LoadLibrary("./libseries.so")
     series = ct.CDLL("./libseries.so")
-    series.ser.restype = ct.c_double
-    f = ct.c_double(1)
-    l = ct.c_double(5000)
-    print "The calculation gives %11.9f"%(series.ser(f,l))
+    series.ser.restype = ct.POINTER(ct.c_double)
+    f = ct.c_int(0)
+    max = 70
+
+    l = ct.c_int(max)
+    x = series.ser(f,l)
+    y = []
+    for i in range(max):
+        y.append(x[i])
+    print y
 
 ctest()
