@@ -22,18 +22,16 @@ def main():
     pt.error(method, h,steps)
     pt.show()
 
-def ctest():
+def ctest(max):
     ct.cdll.LoadLibrary("./libseries.so")
     series = ct.CDLL("./libseries.so")
     series.ser.restype = ct.POINTER(ct.c_double)
     f = ct.c_int(0)
-    max = 70
-
     l = ct.c_int(max)
     x = series.ser(f,l)
     y = []
-    for i in range(max):
-        y.append(x[i])
-    print y
+    #for i in range(max):
+    #    y.append(x[i])
+    #print y
 
-ctest()
+ctest(int(4e8))
