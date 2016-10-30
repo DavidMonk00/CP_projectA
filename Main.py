@@ -32,6 +32,6 @@ def ctest(max):
     y = []
     for i in range(2):
         y.append(x[i])
-    print y
+    #print y
 
 ctest(int(1e2))
