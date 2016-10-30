@@ -4,30 +4,29 @@
 #include "backgroundfunctions.h"
 #include <gsl/gsl_blas.h>
 
-double* eulerForward(double D, int steps) {
+double* eulerForward(double* start, double D, int steps, double h) {
    double** values = create2DArray(2,steps);
-   double** matrix = create2DArray(2,2);
-   static double matrix_vals[4] = {1.0,5.0,-1.0,4.0};
-   for (int j = 0; j < 2; j++) {
-      for (int k = 0; k < 2; k++) {
-         matrix[j][k] = matrix_vals[2*j + k];
-      }
-      matrix[j/2][j%2] = matrix_vals[j];
-   }
    if (values == NULL)  {
        printf(" Out of memory!\n");
        exit(1);
    }
-   for (int i = 0; i < steps; i++){
-      values[0][i] = (double)i;
-      values[1][i] = (double)(i+1);
+
+   double identity[] = {1.0,0.0,0.0,1.0};
+   double function[] = {0.0,1.0,-1.0,-D};
+   double* matrix = create1DArray(4);
+   for (int i = 0; i < 4; i++) {
+      matrix[i] = identity[i] + h*function[i];
    }
-   double a[] = {0.0,1.0,-1.0,D};
-   double b[] = { 5.1, 2.3};
 
-   double* x = vectorMatrixOp(a,b);
-   printf ("[ %g\n", x[0]);
-   printf ("  %g]\n", x[1]);
-
-   return matrix[0];
+   values[0][0] = start[0];
+   values[1][0] = start[1];
+   for (int i = 1; i < steps; i++){
+      double* prev = create1DArray(2);
+      prev[0] = values[0][i-1];
+      prev[1] = values[1][i-1];
+      double* x = vectorMatrixOp(matrix,prev);
+      values[0][i] = x[0];
+      values[1][i] = x[1];
+   }
+   return values[0];
 }
