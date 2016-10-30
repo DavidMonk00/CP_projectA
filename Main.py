@@ -23,15 +23,15 @@ def main():
     pt.show()
 
 def ctest(max):
-    ct.cdll.LoadLibrary("./libseries.so")
-    series = ct.CDLL("./libseries.so")
-    series.ser.restype = ct.POINTER(ct.c_double)
-    f = ct.c_int(0)
-    l = ct.c_int(max)
-    x = series.ser(f,l)
+    ct.cdll.LoadLibrary("./smallangle.so")
+    sa = ct.CDLL("./smallangle.so")
+    sa.eulerForward.restype = ct.POINTER(ct.c_double)
+    D = ct.c_double(0)
+    steps = ct.c_int(max)
+    x = sa.eulerForward(D, steps)
     y = []
-    #for i in range(max):
-    #    y.append(x[i])
-    #print y
+    for i in range(2):
+        y.append(x[i])
+    print y
 
-ctest(int(4e8))
+ctest(int(1e2))
