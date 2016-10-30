@@ -37,4 +37,4 @@ def ctest(max):
         y.append(x[i])
     print y
 
-ctest(int(1e1))
+ctest(int(1e2))
