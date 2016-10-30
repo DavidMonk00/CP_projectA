@@ -1,21 +1,8 @@
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
-
-double** create2DArray(int rows, int columns) {
-   double** array;
-   array = malloc(rows*sizeof(double*));
-   for (int i = 0; i < rows; i++) {
-      array[i] = malloc(columns*sizeof(double));
-   }
-   return array;
-}
-
-double* create1DArray(int columns) {
-   double* array;
-   array = malloc(columns*sizeof(double));
-   return array;
-}
+#include "backgroundfunctions.h"
+#include <gsl/gsl_blas.h>
 
 double* eulerForward(double D, int steps) {
    double** values = create2DArray(2,steps);
@@ -35,5 +22,20 @@ double* eulerForward(double D, int steps) {
       values[0][i] = (double)i;
       values[1][i] = (double)(i+1);
    }
+
+   int i, j;
+   gsl_matrix * m = gsl_matrix_alloc (10, 3);
+   for (i = 0; i < 10; i++){
+      for (j = 0; j < 3; j++){
+         gsl_matrix_set (m, i, j, 0.23 + 100*i + j);
+      }
+   }
+   for (i = 0; i < 10; i++){
+      for (j = 0; j < 3; j++){
+         printf ("m(%d,%d) = %g\n", i, j, gsl_matrix_get (m, i, j));
+      }
+   }
+   gsl_matrix_free (m);
+
    return matrix[0];
 }
