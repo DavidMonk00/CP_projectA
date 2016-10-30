@@ -1,3 +1,5 @@
+#include <gsl/gsl_blas.h>
+
 int length(double* array) {
    return sizeof(array)/sizeof(double);
 }
@@ -17,14 +19,11 @@ double* create1DArray(int columns) {
    return array;
 }
 
-double** MAdd(double** a, double** b) {
-   double** c = create2DArray(2, length(a[0]));
-   if (length(a[0]) != length(b[0])) {
-      printf("Arrays are not of equal order.\n");
-      exit(1);
-   }
-   for (int i = 0; i < length(a[0]); i++) {
-      c[0][i] = a[0][i] + b[0][i];
-      c[1][i] = a[1][i] + b[1][i];
-   }
+double* vectorMatrixOp(double* matrix, double* vector) {
+   static double c[] = { 0.00, 0.00};
+   gsl_matrix_view MATRIX = gsl_matrix_view_array(matrix, 2, 2);
+   gsl_matrix_view VECTOR = gsl_matrix_view_array(vector, 2, 1);
+   gsl_matrix_view C = gsl_matrix_view_array(c, 2, 1);
+   gsl_blas_dgemm (CblasNoTrans, CblasNoTrans,1.0, &MATRIX.matrix, &VECTOR.matrix,0.0, &C.matrix);
+   return c;
 }
