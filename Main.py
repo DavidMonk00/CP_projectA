@@ -12,14 +12,14 @@ import ctypes as ct
 
 
 def main():
-    A = 0.5
+    A = 1.0
     D = 0
     start = [A,0.0]
     pt = Plot.Plot(D,start,2)
-    h = 0.3
-    steps = int(100*2*np.pi/h)
-    method = sa.SmallAngle.leapfrogMethod
-    pt.plotMethod(method,h,steps,True)
+    h = 0.1
+    steps = int(30000*2*np.pi/h)
+    method = sa.SmallAngle.rk4Method
+    pt.plotMethod(method,h,steps,False)
     pt.error(method, h,steps)
     pt.show()
     #y = ctest(steps,h)
@@ -32,12 +32,12 @@ def ctest(p_steps, p_h):
     D = 0.0
     ct.cdll.LoadLibrary("./smallangle.so")
     csa = ct.CDLL("./smallangle.so")
-    csa.eulerForward.restype = ct.POINTER(ct.c_double)
+    csa.rk4.restype = ct.POINTER(ct.c_double)
     c_start = (ct.c_double*len(y_start))(*y_start)
     steps = ct.c_int(p_steps)
     h = ct.c_double(p_h)
     c_D = ct.c_double(D)
-    values = csa.eulerForward(c_start, D, steps,h)
+    values = csa.rk4(c_start, c_D, steps,h)
     y = np.empty(p_steps)
     for i in range(p_steps):
         y[i] = values[i]

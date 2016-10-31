@@ -42,17 +42,18 @@ class SmallAngle(object):
 			y[i] = values[i]
 		return y
 
-	def rk4Method(self, h, steps):
-		y = np.empty(2*steps).reshape(2,steps)
-		y[:,0] = self.y_start
-		for i in xrange(steps - 1):
-			k = [0,0,0,0]
-			k[0] = h*np.dot(self.array, y[:,i])
-			k[1] = h*np.dot(self.array, y[:,i] + 0.5*k[0])
-			k[2] = h*np.dot(self.array, y[:,i] + 0.5*k[1])
-			k[3] = h*np.dot(self.array, y[:,i] + k[2])
-			y[:,i+1] = y[:,i] + (k[0] + 2*k[1] + 2*k[2] + k[3])/6.0
-		return y[0,:]
+	def rk4Method(self, p_h, p_steps):
+		ct.cdll.LoadLibrary("./smallangle.so")
+		csa = ct.CDLL("./smallangle.so")
+		csa.rk4.restype = ct.POINTER(ct.c_double)
+		c_start = (ct.c_double*len(self.y_start))(*self.y_start)
+		steps = ct.c_int(p_steps)
+		h = ct.c_double(p_h)
+		values = csa.rk4(c_start,ct.c_double(self.D), steps,h)
+		y = np.empty(p_steps)
+		for i in range(p_steps):
+			y[i] = values[i]
+		return y
 
 	def implicitEulerMethod(self, h, steps):
 		y = np.empty(2*steps).reshape(2,steps)
