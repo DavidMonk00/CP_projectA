@@ -9,13 +9,15 @@ import matplotlib.pyplot as plt
 import SmallAngle
 
 class Plot(object):
-	def __init__(self, damping_coefficient, start, rows):
+	def __init__(self, damping_coefficient, start, rows, R = 1, G = 0):
 		self.sa = SmallAngle.SmallAngle(damping_coefficient, start)
 		self.fig = plt.figure()
 		self.row_counter = 1
 		self.rows = rows
 		self.subplots = []
 		self.A = start[0]
+		self.R = R
+		self.G = G
 
 	def analytical(self, h, steps):
 		x = np.arange(0,h*steps,h)
@@ -45,6 +47,16 @@ class Plot(object):
 		self.subplots[self.row_counter-1].plot(x,y)
 		if true_value:
 			self.analytical(h,steps)
+		self.row_counter += 1
+
+	def plotDoubleMethod(self, method, h, steps):
+		x = np.arange(0,h*steps,h)
+		y = method(self.sa,h, steps, self.R, self.G)
+		self.subplots.append(self.fig.add_subplot(self.rows,1,self.row_counter))
+		self.subplots[self.row_counter-1].set_ylabel('Value')
+		self.subplots[self.row_counter-1].plot(x,y)
+		#if true_value:
+		#	self.analytical(h,steps)
 		self.row_counter += 1
 
 	def show(self):

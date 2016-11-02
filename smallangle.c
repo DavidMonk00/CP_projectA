@@ -181,8 +181,8 @@ double* leapfrogDoublePendulum(double* start, double R, double G, int steps, dou
    return values[0];
 }
 
-double* rk4DoublePendulum(double* start, double R, double G, int steps, double h) {
-   double** values = create2DArray(2,steps);
+double** rk4DoublePendulum(double* start, double R, double G, int steps, double h) {
+   double** values = create2DArray(4,steps);
    if (values == NULL)  {
        printf(" Out of memory!\n");
        exit(1);
@@ -228,5 +228,5 @@ double* rk4DoublePendulum(double* start, double R, double G, int steps, double h
          values[j][i] = prev_i[j] + (k[j][0] + 2*k[j][1] + 2*k[j][2] + k[j][3])/6.0;
       }
    }
-   return values[0];
+   return values;
 }

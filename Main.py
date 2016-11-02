@@ -17,12 +17,12 @@ def main():
     R = 1
     G = 0
     start = [A,0.0]
-    pt = Plot.Plot(D,start,2)
+    pt = Plot.Plot(D,start,1)
     h = 0.01
-    steps = int(30*2*np.pi/h)
-    method = sa.SmallAngle.rk4Method
-    pt.plotMethod(method,h,steps,False)
-    pt.error(method, h,steps)
+    steps = int(1*2*np.pi/h)
+    method = sa.SmallAngle.rk4DoublePendulumMethod
+    pt.plotDoubleMethod(method,h,steps)
+    #pt.error(method, h,steps)
     pt.show()
     #y = ctest(steps,h)
     #x = np.arange(0,h*steps,h)
@@ -42,7 +42,7 @@ def ctest(p_steps, p_h):
     values = csa.rk4(c_start, c_D, steps,h)
     y = np.empty(p_steps)
     for i in range(p_steps):
-        y[i] = values[i]
+        y[i] = values[0][i]
     return y
 
 main()
