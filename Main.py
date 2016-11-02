@@ -17,7 +17,7 @@ def main():
     start = [A,0.0]
     pt = Plot.Plot(D,start,2)
     h = 0.1
-    steps = int(30000*2*np.pi/h)
+    steps = int(3000*2*np.pi/h)
     method = sa.SmallAngle.rk4Method
     pt.plotMethod(method,h,steps,False)
     pt.error(method, h,steps)
