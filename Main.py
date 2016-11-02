@@ -13,11 +13,13 @@ import ctypes as ct
 
 def main():
     A = 1.0
-    D = 0
+    D = 0.1
+    R = 1
+    G = 0
     start = [A,0.0]
     pt = Plot.Plot(D,start,2)
-    h = 0.1
-    steps = int(3000*2*np.pi/h)
+    h = 0.01
+    steps = int(30*2*np.pi/h)
     method = sa.SmallAngle.rk4Method
     pt.plotMethod(method,h,steps,False)
     pt.error(method, h,steps)

@@ -27,3 +27,22 @@ double* vectorMatrixOp(double* matrix, double* vector) {
    gsl_blas_dgemm (CblasNoTrans, CblasNoTrans,1.0, &MATRIX.matrix, &VECTOR.matrix,0.0, &C.matrix);
    return c;
 }
+
+double* vector4MatrixOp(double* matrix, double* vector) {
+   static double c[] = {0.0, 0.0, 0.0, 0.0};
+   gsl_matrix_view MATRIX = gsl_matrix_view_array(matrix, 4, 4);
+   gsl_matrix_view VECTOR = gsl_matrix_view_array(vector, 4, 1);
+   gsl_matrix_view C = gsl_matrix_view_array(c, 4, 1);
+   gsl_blas_dgemm (CblasNoTrans, CblasNoTrans,1.0, &MATRIX.matrix, &VECTOR.matrix,0.0, &C.matrix);
+   return c;
+}
+
+double* invert2x2(double* matrix) {
+   static double c[] = {0.0,0.0,0.0,0.0};
+   double det = matrix[0]*matrix[3] - matrix[1]*matrix[2];
+   c[0] = matrix[3]/det;
+   c[1] = -matrix[1]/det;
+   c[2] = -matrix[2]/det;
+   c[3] = matrix[0]/det;
+   return c;
+}

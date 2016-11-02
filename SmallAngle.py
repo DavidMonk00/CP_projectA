@@ -55,13 +55,18 @@ class SmallAngle(object):
 			y[i] = values[i]
 		return y
 
-	def implicitEulerMethod(self, h, steps):
-		y = np.empty(2*steps).reshape(2,steps)
-		y[:,0] = self.y_start
-		inv_t = np.linalg.inv(np.eye(2, dtype='float64') - h*self.array)
-		for i in xrange(steps - 1):
-			y[:, i+1] = np.dot(inv_t,y[:,i])
-		return y[0,:]
+	def implicitEulerMethod(self, p_h, p_steps):
+		ct.cdll.LoadLibrary("./smallangle.so")
+		csa = ct.CDLL("./smallangle.so")
+		csa.implicitEuler.restype = ct.POINTER(ct.c_double)
+		c_start = (ct.c_double*len(self.y_start))(*self.y_start)
+		steps = ct.c_int(p_steps)
+		h = ct.c_double(p_h)
+		values = csa.implicitEuler(c_start,ct.c_double(self.D), steps,h)
+		y = np.empty(p_steps)
+		for i in range(p_steps):
+			y[i] = values[i]
+		return y
 
 	def error(self, method, h, steps):
 		x = np.arange(0,h*steps,h)
