@@ -16,9 +16,9 @@ class SmallAngle(object):
 		self.D = damping_coefficient
 		self.y_start = start
 
-	def eulerForwardMethod(self, p_h, p_steps):
-		ct.cdll.LoadLibrary("./smallangle.so")
-		csa = ct.CDLL("./smallangle.so")
+	def eulerForwardMethod(self, p_h, p_steps, row):
+		ct.cdll.LoadLibrary("./singlependulum.so")
+		csa = ct.CDLL("./singlependulum.so")
 		csa.eulerForward.restype = ct.POINTER(ct.c_double)
 		c_start = (ct.c_double*len(self.y_start))(*self.y_start)
 		steps = ct.c_int(p_steps)
@@ -26,12 +26,12 @@ class SmallAngle(object):
 		values = csa.eulerForward(c_start,ct.c_double(self.D), steps,h)
 		y = np.empty(p_steps)
 		for i in range(p_steps):
-			y[i] = values[i]
+			y[i] = values[row][i]
 		return y
 
 	def leapfrogMethod(self,p_h,p_steps,row):
-		ct.cdll.LoadLibrary("./smallangle.so")
-		csa = ct.CDLL("./smallangle.so")
+		ct.cdll.LoadLibrary("./singlependulum.so")
+		csa = ct.CDLL("./singlependulum.so")
 		csa.leapfrog.restype = ct.POINTER(ct.POINTER(ct.c_double))
 		c_start = (ct.c_double*len(self.y_start))(*self.y_start)
 		steps = ct.c_int(p_steps)
@@ -43,8 +43,8 @@ class SmallAngle(object):
 		return y
 
 	def rk4Method(self, p_h, p_steps, row):
-		ct.cdll.LoadLibrary("./smallangle.so")
-		csa = ct.CDLL("./smallangle.so")
+		ct.cdll.LoadLibrary("./singlependulum.so")
+		csa = ct.CDLL("./singlependulum.so")
 		csa.rk4.restype = ct.POINTER(ct.POINTER(ct.c_double))
 		c_start = (ct.c_double*len(self.y_start))(*self.y_start)
 		steps = ct.c_int(p_steps)
@@ -55,9 +55,9 @@ class SmallAngle(object):
 			y[i] = values[row][i]
 		return y
 
-	def implicitEulerMethod(self, p_h, p_steps):
-		ct.cdll.LoadLibrary("./smallangle.so")
-		csa = ct.CDLL("./smallangle.so")
+	def implicitEulerMethod(self, p_h, p_steps, row):
+		ct.cdll.LoadLibrary("./singlependulum.so")
+		csa = ct.CDLL("./singlependulum.so")
 		csa.implicitEuler.restype = ct.POINTER(ct.c_double)
 		c_start = (ct.c_double*len(self.y_start))(*self.y_start)
 		steps = ct.c_int(p_steps)
@@ -65,23 +65,35 @@ class SmallAngle(object):
 		values = csa.implicitEuler(c_start,ct.c_double(self.D), steps,h)
 		y = np.empty(p_steps)
 		for i in range(p_steps):
-			y[i] = values[i]
+			y[i] = values[row][i]
 		return y
 
-	def rk4DoublePendulumMethod(self, p_h, p_steps, p_R, p_G, pendulum):
-		ct.cdll.LoadLibrary("./doublependulum.so")
-		csa = ct.CDLL("./doublependulum.so")
-		csa.rk4DoublePendulum.restype = ct.POINTER(ct.POINTER(ct.c_double))
+	def leapfrogSineMethod(self,p_h,p_steps,row):
+		ct.cdll.LoadLibrary("./singlependulum.so")
+		csa = ct.CDLL("./singlependulum.so")
+		csa.leapfrogSine.restype = ct.POINTER(ct.POINTER(ct.c_double))
 		c_start = (ct.c_double*len(self.y_start))(*self.y_start)
 		steps = ct.c_int(p_steps)
 		h = ct.c_double(p_h)
-		R = ct.c_double(p_R)
-		G = ct.c_double(p_G)
-		values = csa.rk4DoublePendulum(c_start,R,G, steps,h)
-		#y = np.empty(p_steps)
-		#for i in range(p_steps):
-		#	y[i] = values[pendulum][i]
-		return values
+		values = csa.leapfrogSine(c_start,ct.c_double(self.D), steps,h)
+		y = np.empty(p_steps)
+		for i in range(p_steps):
+			y[i] = values[row][i]
+		return y
+
+	def rk4SineMethod(self, p_h, p_steps, row):
+		ct.cdll.LoadLibrary("./singlependulum.so")
+		csa = ct.CDLL("./singlependulum.so")
+		csa.rk4Sine.restype = ct.POINTER(ct.POINTER(ct.c_double))
+		c_start = (ct.c_double*len(self.y_start))(*self.y_start)
+		steps = ct.c_int(p_steps)
+		h = ct.c_double(p_h)
+		values = csa.rk4Sine(c_start,ct.c_double(self.D), steps,h)
+		y = np.empty(p_steps)
+		for i in range(p_steps):
+			y[i] = values[row][i]
+		return y
+
 
 	def error(self, method, h, steps):
 		x = np.arange(0,h*steps,h)

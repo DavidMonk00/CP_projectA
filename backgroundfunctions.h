@@ -1,4 +1,5 @@
 #include <gsl/gsl_blas.h>
+#include <math.h>
 
 int length(double* array) {
    return sizeof(array)/sizeof(double);
@@ -44,5 +45,12 @@ double* invert2x2(double* matrix) {
    c[1] = -matrix[1]/det;
    c[2] = -matrix[2]/det;
    c[3] = matrix[0]/det;
+   return c;
+}
+
+double* vectorMatrixSineOp(double* matrix, double* vector) {
+   static double c[] = {0.0,0.0};
+   c[0] = matrix[0]*vector[0] + matrix[1]*vector[1];
+   c[1] = matrix[2]*sin(vector[0]) + matrix[3]*vector[1];
    return c;
 }
