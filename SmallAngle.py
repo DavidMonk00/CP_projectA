@@ -29,30 +29,30 @@ class SmallAngle(object):
 			y[i] = values[i]
 		return y
 
-	def leapfrogMethod(self,p_h,p_steps):
+	def leapfrogMethod(self,p_h,p_steps,row):
 		ct.cdll.LoadLibrary("./smallangle.so")
 		csa = ct.CDLL("./smallangle.so")
-		csa.leapfrog.restype = ct.POINTER(ct.c_double)
+		csa.leapfrog.restype = ct.POINTER(ct.POINTER(ct.c_double))
 		c_start = (ct.c_double*len(self.y_start))(*self.y_start)
 		steps = ct.c_int(p_steps)
 		h = ct.c_double(p_h)
 		values = csa.leapfrog(c_start,ct.c_double(self.D), steps,h)
 		y = np.empty(p_steps)
 		for i in range(p_steps):
-			y[i] = values[i]
+			y[i] = values[row][i]
 		return y
 
-	def rk4Method(self, p_h, p_steps):
+	def rk4Method(self, p_h, p_steps, row):
 		ct.cdll.LoadLibrary("./smallangle.so")
 		csa = ct.CDLL("./smallangle.so")
-		csa.rk4.restype = ct.POINTER(ct.c_double)
+		csa.rk4.restype = ct.POINTER(ct.POINTER(ct.c_double))
 		c_start = (ct.c_double*len(self.y_start))(*self.y_start)
 		steps = ct.c_int(p_steps)
 		h = ct.c_double(p_h)
 		values = csa.rk4(c_start,ct.c_double(self.D), steps,h)
 		y = np.empty(p_steps)
 		for i in range(p_steps):
-			y[i] = values[i]
+			y[i] = values[row][i]
 		return y
 
 	def implicitEulerMethod(self, p_h, p_steps):

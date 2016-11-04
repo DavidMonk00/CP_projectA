@@ -31,7 +31,7 @@ double* eulerForward(double* start, double D, int steps, double h) {
    return values[0];
 }
 
-double* leapfrog(double* start, double D, int steps, double h) {
+double** leapfrog(double* start, double D, int steps, double h) {
    double** values = create2DArray(2,steps);
    if (values == NULL)  {
        printf(" Out of memory!\n");
@@ -64,10 +64,10 @@ double* leapfrog(double* start, double D, int steps, double h) {
       values[0][i] = 2*x[0] + prev[0];
       values[1][i] = 2*x[1] + prev[1];
    }
-   return values[0];
+   return values;
 }
 
-double* rk4(double* start, double D, int steps, double h) {
+double** rk4(double* start, double D, int steps, double h) {
    double** values = create2DArray(2,steps);
    if (values == NULL)  {
        printf(" Out of memory!\n");
@@ -113,7 +113,7 @@ double* rk4(double* start, double D, int steps, double h) {
       values[0][i] = prev_i[0] + (k[0][0] + 2*k[0][1] + 2*k[0][2] + k[0][3])/6.0;
       values[1][i] = prev_i[1] + (k[1][0] + 2*k[1][1] + 2*k[1][2] + k[1][3])/6.0;
    }
-   return values[0];
+   return values;
 }
 
 double* implicitEuler(double* start, double D, int steps, double h) {
