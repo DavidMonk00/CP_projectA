@@ -1,3 +1,11 @@
+/* 20161104
+ * David Monk
+ *
+ * This file contains the numerical methods used to approximate the
+ * motion of a single pendulum. Each returns a two-dimensional pointer
+ * array of the postion and velocity at each timestep.
+ */
+
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
