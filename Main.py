@@ -11,19 +11,21 @@ from matplotlib import pyplot as plt
 import ctypes as ct
 
 
-def doublePendum():
+def doublePendulum():
+    D = 0
     A = 0.1
     R = 1
     G = 0
     start = [A,0.0,0.0,0.0]
     pt = Plot.Plot(D,start,1,R,G)
-    h = 0.01
-    steps = int(3*2*np.pi/h)
+    h = 0.08
+    cycles = 30
+    steps = int(cycles*2*np.pi/h)
     method = sa.SmallAngle.rk4DoublePendulumMethod
     pt.plotDoubleMethod(method,h,steps)
     pt.show()
 
-def singlePendum():
+def singlePendulum():
     A = 0.1
     D = 0
     start = [A,0.0]
@@ -52,6 +54,6 @@ def ctest(p_steps, p_h):
     return y
 
 def main():
-    singlePendum()
+    doublePendulum()
 
 main()
