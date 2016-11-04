@@ -27,7 +27,13 @@ def singlePendulum(A, D, cycles, h):
     pt.show()
 
 def main():
-    #doublePendulum(0.1,1,0,30,0.08)
-    singlePendulum(0.1,0,10,0.01)
+    A = 0.1
+    D = 0
+    R = 1
+    G = 0
+    cycles = 10
+    h = 0.01
+    #doublePendulum(A, R, G, cycles, h)
+    singlePendulum(A, D, cycles, h)
 
 main()
