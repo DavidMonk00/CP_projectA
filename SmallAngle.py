@@ -68,7 +68,7 @@ class SmallAngle(object):
 			y[i] = values[i]
 		return y
 
-	def rk4DoublePendulumMethod(self, p_h, p_steps, p_R, p_G):
+	def rk4DoublePendulumMethod(self, p_h, p_steps, p_R, p_G, pendulum):
 		ct.cdll.LoadLibrary("./smallangle.so")
 		csa = ct.CDLL("./smallangle.so")
 		csa.rk4DoublePendulum.restype = ct.POINTER(ct.POINTER(ct.c_double))
@@ -77,10 +77,10 @@ class SmallAngle(object):
 		h = ct.c_double(p_h)
 		R = ct.c_double(p_R)
 		G = ct.c_double(p_G)
-		values = csa.rk4DoublePendulum(c_start,R,G,ct.c_double(self.D), steps,h)
+		values = csa.rk4DoublePendulum(c_start,R,G, steps,h)
 		y = np.empty(p_steps)
 		for i in range(p_steps):
-			y[i] = values[1][i]
+			y[i] = values[pendulum][i]
 		return y
 
 	def error(self, method, h, steps):

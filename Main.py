@@ -12,14 +12,14 @@ import ctypes as ct
 
 
 def main():
-    A = 1.0
-    D = 0.1
-    R = 1
+    A = 0.1
+    D = 0
+    R = 100
     G = 0
-    start = [A,0.0]
-    pt = Plot.Plot(D,start,1)
+    start = [A,0.0,0.0,0.0]
+    pt = Plot.Plot(D,start,1,R,G)
     h = 0.01
-    steps = int(1*2*np.pi/h)
+    steps = int(10*2*np.pi/h)
     method = sa.SmallAngle.rk4DoublePendulumMethod
     pt.plotDoubleMethod(method,h,steps)
     #pt.error(method, h,steps)

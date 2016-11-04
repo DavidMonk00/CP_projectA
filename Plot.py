@@ -51,10 +51,12 @@ class Plot(object):
 
 	def plotDoubleMethod(self, method, h, steps):
 		x = np.arange(0,h*steps,h)
-		y = method(self.sa,h, steps, self.R, self.G)
+		y_i = method(self.sa,h, steps, self.R, self.G,0)
+		y_ii = method(self.sa,h, steps, self.R, self.G,1)
 		self.subplots.append(self.fig.add_subplot(self.rows,1,self.row_counter))
 		self.subplots[self.row_counter-1].set_ylabel('Value')
-		self.subplots[self.row_counter-1].plot(x,y)
+		self.subplots[self.row_counter-1].plot(x,y_i)
+		self.subplots[self.row_counter-1].plot(x,y_ii)
 		#if true_value:
 		#	self.analytical(h,steps)
 		self.row_counter += 1
