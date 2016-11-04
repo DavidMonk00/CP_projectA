@@ -48,9 +48,9 @@ class Plot(object):
 			E.append(y[i]**2 + v[i]**2)
 		self.subplots.append(self.fig.add_subplot(self.rows,1,self.row_counter))
 		self.subplots[self.row_counter-1].set_ylabel('Value')
-		self.subplots[self.row_counter-1].plot(x,y)
+		#self.subplots[self.row_counter-1].plot(x,y)
 		#self.subplots[self.row_counter-1].plot(x,v)
-		#self.subplots[self.row_counter-1].plot(x,E)
+		self.subplots[self.row_counter-1].plot(x,E)
 		if true_value:
 			self.analytical(h,steps)
 		self.row_counter += 1
