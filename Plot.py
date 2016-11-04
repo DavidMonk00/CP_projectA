@@ -59,12 +59,16 @@ class Plot(object):
 		x = np.arange(0,h*steps,h)
 		y_i = method(self.sa,h, steps, self.R, self.G,0)
 		y_ii = method(self.sa,h, steps, self.R, self.G,1)
+		v_i = method(self.sa,h, steps, self.R, self.G,2)
+		v_ii = method(self.sa,h, steps, self.R, self.G,3)
+		E = []
+		for i in range(len(y)):
+			E.append(y_i[i]**2 + v_i[i]**2 + y_ii[i]**2 + v_ii[i]**2)
+
 		self.subplots.append(self.fig.add_subplot(self.rows,1,self.row_counter))
 		self.subplots[self.row_counter-1].set_ylabel('Value')
 		self.subplots[self.row_counter-1].plot(x,y_i)
 		self.subplots[self.row_counter-1].plot(x,y_ii)
-		#if true_value:
-		#	self.analytical(h,steps)
 		self.row_counter += 1
 
 	def show(self):
