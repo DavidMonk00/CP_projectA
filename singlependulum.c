@@ -4,6 +4,18 @@
 #include "backgroundfunctions.h"
 #include <gsl/gsl_blas.h>
 
+/* Function: eulerForward
+ * ------------------------
+ * Implements the Euler forward method for a single pendulum
+ *
+ * start:   one-dimensional array of length 2 (position,velocity)
+ * D:       damping coefficient
+ * steps:   number of steps for the iteration
+ * h:       timestep of method
+ *
+ * returns: two-dimensional array of positions and velocities at each
+ * point in time.
+ */
 double** eulerForward(double* start, double D, int steps, double h) {
    double** values = create2DArray(2,steps);
    if (values == NULL)  {
@@ -31,6 +43,18 @@ double** eulerForward(double* start, double D, int steps, double h) {
    return values;
 }
 
+/* Function: leapfrog
+ * ------------------------
+ * Implements the leapfrog method for a single pendulum
+ *
+ * start:   one-dimensional array of length 2 (position,velocity)
+ * D:       damping coefficient
+ * steps:   number of steps for the iteration
+ * h:       timestep of method
+ *
+ * returns: two-dimensional array of positions and velocities at each
+ * point in time.
+ */
 double** leapfrog(double* start, double D, int steps, double h) {
    double** values = create2DArray(2,steps);
    if (values == NULL)  {
@@ -67,6 +91,18 @@ double** leapfrog(double* start, double D, int steps, double h) {
    return values;
 }
 
+/* Function: rk4
+ * ------------------------
+ * Implements the Runge-Kuntta 4 method for a single pendulum
+ *
+ * start:   one-dimensional array of length 2 (position,velocity)
+ * D:       damping coefficient
+ * steps:   number of steps for the iteration
+ * h:       timestep of method
+ *
+ * returns: two-dimensional array of positions and velocities at each
+ * point in time.
+ */
 double** rk4(double* start, double D, int steps, double h) {
    double** values = create2DArray(2,steps);
    if (values == NULL)  {
@@ -116,8 +152,19 @@ double** rk4(double* start, double D, int steps, double h) {
    return values;
 }
 
-double** implicitEuler(double* start, double D, int steps, double h) {
-   double** values = create2DArray(2,steps);
+/* Function: implicitEuler
+ * ------------------------
+ * Implements the implicit Euler method for a single pendulum
+ *
+ * start:   one-dimensional array of length 2 (position,velocity)
+ * D:       damping coefficient
+ * steps:   number of steps for the iteration
+ * h:       timestep of method
+ *
+ * returns: two-dimensional array of positions and velocities at each
+ * point in time.
+ */double** implicitEuler(double* start, double D, int steps, double h) {
+double** values = create2DArray(2,steps);
    if (values == NULL)  {
        printf(" Out of memory!\n");
        exit(1);
@@ -144,13 +191,25 @@ double** implicitEuler(double* start, double D, int steps, double h) {
    return values;
 }
 
+/* Function: leapfrogSine
+ * ------------------------
+ * Implements the leapfrog method for a single pendulum without using
+ * a small-angle approximation
+ *
+ * start:   one-dimensional array of length 2 (position,velocity)
+ * D:       damping coefficient
+ * steps:   number of steps for the iteration
+ * h:       timestep of method
+ *
+ * returns: two-dimensional array of positions and velocities at each
+ * point in time.
+ */
 double** leapfrogSine(double* start, double D, int steps, double h) {
    double** values = create2DArray(2,steps);
    if (values == NULL)  {
        printf(" Out of memory!\n");
        exit(1);
    }
-
    double identity[] = {1.0,0.0,0.0,1.0};
    double function[] = {0.0,1.0,-1.0,-D};
    double* matrix = create1DArray(4);
@@ -180,6 +239,19 @@ double** leapfrogSine(double* start, double D, int steps, double h) {
    return values;
 }
 
+/* Function: rk4
+ * ------------------------
+ * Implements the Runge-Kuntta 4 method for a single pendulum without
+ * using the small-angle approximation.
+ *
+ * start:   one-dimensional array of length 2 (position,velocity)
+ * D:       damping coefficient
+ * steps:   number of steps for the iteration
+ * h:       timestep of method
+ *
+ * returns: two-dimensional array of positions and velocities at each
+ * point in time.
+ */
 double** rk4Sine(double* start, double D, int steps, double h) {
    double** values = create2DArray(2,steps);
    if (values == NULL)  {
