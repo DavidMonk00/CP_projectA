@@ -94,7 +94,6 @@ class SmallAngle(object):
 			y[i] = values[row][i]
 		return y
 
-
 	def error(self, method, h, steps):
 		x = np.arange(0,h*steps,h)
 		real = (self.y_start[0]*np.cos(x))[1:]
