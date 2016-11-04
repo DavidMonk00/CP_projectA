@@ -25,12 +25,12 @@ def doublePendulum():
     pt.show()
 
 def singlePendulum():
-    A = 3.141592
+    A = 0.1
     D = 0
     start = [A,0.0]
     pt = Plot.Plot(D,start,1)
-    h = 0.1
-    cycles = 20
+    h = 0.01
+    cycles = 10
     steps = int(cycles*2*np.pi/h)
     method = sa.SmallAngle.rk4SineMethod
     pt.plotMethod(method,h,steps)

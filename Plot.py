@@ -45,7 +45,7 @@ class Plot(object):
 		v = method(self.sa,h, steps,1)
 		E = []
 		for i in range(len(y)):
-			E.append(y[i]**2 + v[i]**2)
+			E.append(((v[i]**2)/2) + 1 - np.cos(y[i]))
 		self.subplots.append(self.fig.add_subplot(self.rows,1,self.row_counter))
 		self.subplots[self.row_counter-1].set_ylabel('Value')
 		#self.subplots[self.row_counter-1].plot(x,y)
