@@ -34,7 +34,7 @@ def main():
     A, D, R, G = 0.1, 0, 1, 0
     cycles = 10
     h = 0.2
-#    doublePendulum(A, R, G, cycles, h)
-    singlePendulum(A, D, cycles, h)
+    doublePendulum(A, R, G, cycles, h)
+    #singlePendulum(A, D, cycles, h)
 
 main()
