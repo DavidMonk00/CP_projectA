@@ -3,7 +3,8 @@
 #include <stdio.h>
 #include "backgroundfunctions.h"
 #include <gsl/gsl_blas.h>
-double* leapfrogDoublePendulum(double* start, double R, double G, int steps, double h) {
+
+double* leapfrog(double* start, double R, double G, int steps, double h) {
    double** values = create2DArray(4,steps);
    if (values == NULL)  {
        printf(" Out of memory!\n");
@@ -40,7 +41,7 @@ double* leapfrogDoublePendulum(double* start, double R, double G, int steps, dou
    return values[0];
 }
 
-double** rk4DoublePendulum(double* start, double R, double G, int steps, double h) {
+double** rk4(double* start, double R, double G, int steps, double h) {
    double** values = create2DArray(4,steps);
    if (values == NULL)  {
        printf(" Out of memory!\n");

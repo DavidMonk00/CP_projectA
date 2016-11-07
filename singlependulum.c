@@ -171,8 +171,9 @@ double** rk4(double* start, double D, int steps, double h) {
  *
  * returns: two-dimensional array of positions and velocities at each
  * point in time.
- */double** implicitEuler(double* start, double D, int steps, double h) {
-double** values = create2DArray(2,steps);
+ */
+double** implicitEuler(double* start, double D, int steps, double h) {
+	double** values = create2DArray(2,steps);
    if (values == NULL)  {
        printf(" Out of memory!\n");
        exit(1);
@@ -247,7 +248,7 @@ double** leapfrogSine(double* start, double D, int steps, double h) {
    return values;
 }
 
-/* Function: rk4
+/* Function: rk4Sine
  * ------------------------
  * Implements the Runge-Kuntta 4 method for a single pendulum without
  * using the small-angle approximation.

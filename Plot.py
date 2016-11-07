@@ -6,11 +6,13 @@ Created on 28 Oct 2016
 
 import numpy as np
 import matplotlib.pyplot as plt
-import SmallAngle
+import SinglePendulum
+import DoublePendulum
 
 class Plot(object):
 	def __init__(self, damping_coefficient, start, rows, R = 1, G = 0):
-		self.sa = SmallAngle.SmallAngle(damping_coefficient, start)
+		self.sp = SinglePendulum.SinglePendulum(damping_coefficient, start)
+		self.dp = DoublePendulum.DoublePendulum(start, R, G)
 		self.fig = plt.figure()
 		self.row_counter = 1
 		self.rows = rows
@@ -26,7 +28,7 @@ class Plot(object):
 
 	def error(self, method, h, steps):
 		x = np.arange(0,h*steps,h)
-		y = self.sa.error(method, h, steps)
+		y = self.sp.error(method, h, steps)
 		self.subplots.append(self.fig.add_subplot(self.rows,1,self.row_counter))
 		self.subplots[self.row_counter-1].set_ylabel('Error')
 		self.subplots[self.row_counter-1].plot(x[1:],y)
@@ -34,15 +36,16 @@ class Plot(object):
 
 	def stability(self, h, steps):
 		x = np.arange(0,h*steps,h)
-		y = self.sa.stability(h, steps)
+		y = self.sp.stability(h, steps)
 		ax = self.fig.add_subplot(self.rows,1,self.row_counter)
 		self.row_counter += 1
 		ax.plot(x[1:],y)
 
 	def plotMethod(self, method, h, steps, true_value=False):
 		x = np.arange(0,h*steps,h)
-		y = method(self.sa,h, steps,0)
-		v = method(self.sa,h, steps,1)
+		values = self.sp.iterateMethod(method, h, steps)
+		y = values[0]
+		v = values[1]
 		E = []
 		for i in range(len(y)):
 			E.append(((v[i]**2)/2) + 1 - np.cos(y[i]))
@@ -57,7 +60,7 @@ class Plot(object):
 
 	def plotDoubleMethod(self, method, h, steps):
 		x = np.arange(0,h*steps,h)
-		values = method(self.sa,h, steps, self.R, self.G,0)
+		values = self.dp.iterateMethod(method, h, steps)
 		y_i = []
 		y_ii = []
 		w = []
