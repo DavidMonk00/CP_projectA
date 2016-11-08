@@ -60,29 +60,13 @@ class Plot(object):
 
 	def plotDoubleMethod(self, method, h, steps):
 		x = np.arange(0,h*steps,h)
-		values = self.dp.iterateMethod(method, h, steps)
-		y_i = []
-		y_ii = []
-		w = []
-		v = []
-		for i in range(steps):
-			y_i.append(values[0][i])
-			y_ii.append(values[1][i])
-			w.append(values[2][i])
-			v.append(values[3][i])
-		E = []
-		for i in range(len(y_i)):
-			E.append(2*y_i[i]**2 +
-					 y_ii[i]**2 +
-					 2*w[i]**2 +
-					 v[i]**2 +
-					 2*v[i]*w[i]*(1-(y_i[i]-y_ii[i])/2))
-
+		y,E = self.dp.iterateMethod(method, h, steps)
+		print "Plotting..."
 		self.subplots.append(self.fig.add_subplot(self.rows,1,self.row_counter))
 		self.subplots[self.row_counter-1].set_ylabel('Value')
-		#self.subplots[self.row_counter-1].plot(x,y_i)
-		#self.subplots[self.row_counter-1].plot(x,y_ii)
-		self.subplots[self.row_counter-1].plot(x,E)
+		self.subplots[self.row_counter-1].plot(x,y[0])
+		self.subplots[self.row_counter-1].plot(x,y[1])
+		#self.subplots[self.row_counter-1].plot(x,E)
 		self.row_counter += 1
 
 	def show(self):

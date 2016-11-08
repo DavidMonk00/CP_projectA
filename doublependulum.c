@@ -4,7 +4,7 @@
 #include "backgroundfunctions.h"
 #include <gsl/gsl_blas.h>
 
-double* leapfrog(double* start, double R, double G, int steps, double h) {
+double** leapfrog(double* start, double R, double G, int steps, double h) {
    double** values = create2DArray(4,steps);
    if (values == NULL)  {
        printf(" Out of memory!\n");
@@ -38,7 +38,7 @@ double* leapfrog(double* start, double R, double G, int steps, double h) {
       double* x = vectorMatrixOp(matrix,vector);
       for(int j = 0; j < 4; j++) {values[j][i] = 2*x[j] + prev[j];}
    }
-   return values[0];
+   return values;
 }
 
 double** rk4(double* start, double R, double G, int steps, double h) {

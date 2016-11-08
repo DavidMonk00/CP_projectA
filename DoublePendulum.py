@@ -18,11 +18,24 @@ class DoublePendulum(object):
 		self.G = G
 
 	def iterateMethod(self, method, h, steps):
+		cR = ct.c_double(self.R)
+		cG = ct.c_double(self.G)
+		csteps = ct.c_int(steps)
+		ch = ct.c_double(h)
 		method.restype = ct.POINTER(ct.POINTER(ct.c_double))
 		c_start = (ct.c_double*len(self.y_start))(*self.y_start)
+		print "Obtaining values..."
 		values = method(c_start, ct.c_double(self.R), ct.c_double(self.G),ct.c_int(steps),ct.c_double(h))
+		print "C complete. Casting to numpy and calculating energy..."
 		y = np.empty(4*steps).reshape(4,steps)
+		E = np.empty(steps)
+		prev = 0
 		for i in range(steps):
+			frac = i/steps
+			if (frac % (steps/100) == 0 and frac != prev):
+				prev = frac
+				print frac
 			for j in range(4):
 				y[j][i] = values[j][i]
-		return y
+			E[i] = 2*values[0][i]**2 + values[1][i]**2 + 2*values[2][i]**2 + values[3][i]**2 + 2*values[3][i]*values[2][i]*(1-(values[0][i]-values[1][i])/2)
+		return y,E
