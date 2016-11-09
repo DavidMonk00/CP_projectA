@@ -34,7 +34,7 @@ def singlePendulum(A, D, cycles, h):
 
 def main():
     A, D, R, G = 0.1, 0, 1, 0.01
-    cycles = 10
+    cycles = 100
     h = 0.001
     doublePendulum(A, R, G, cycles, h)
     #singlePendulum(A, D, cycles, h)

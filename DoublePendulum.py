@@ -31,10 +31,8 @@ class DoublePendulum(object):
 		E = np.empty(steps)
 		prev = 0
 		for i in range(steps):
-			frac = i/steps
-			if (frac % (steps/100) == 0 and frac != prev):
-				prev = frac
-				print frac
+			if (i % (steps/100) == 0):
+				print (float(i)/steps)*100
 			for j in range(4):
 				y[j][i] = values[j][i]
 			E[i] = 2*values[0][i]**2 + values[1][i]**2 + 2*values[2][i]**2 + values[3][i]**2 + 2*values[3][i]*values[2][i]*(1-(values[0][i]-values[1][i])/2)
