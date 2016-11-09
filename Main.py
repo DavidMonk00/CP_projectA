@@ -27,7 +27,7 @@ def singlePendulum(A, D, cycles, h):
     start = [A,0.0]
     pt = Plot.Plot(D,start,1)
     steps = int(cycles*2*np.pi/h)
-    method = csa.eulerForward
+    method = csa.rk4
     pt.plotMethod(method,h,steps)
     #pt.plotMethod(csa.leapfrog,h,steps)
     pt.show()
@@ -35,11 +35,11 @@ def singlePendulum(A, D, cycles, h):
 def main():
     A, D, R, G = 0.1, 0.2, 1, 0.01
     cycles = 100
-    s = [0.01,0.05,0.1,0.2,0.3,0.4,0.5]#,0.6,0.7,0.8,0.9,1.0,1.5,2,2.5,3]
+    s = [0.01,0.05,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.5,2,2.5,3]
     t = np.arange(0.2,0.3,0.01)
     h = 0.05
     #doublePendulum(A, R, G, cycles, h)
-    for i in t:
+    for i in s:
         print i, " - "
         singlePendulum(A, D, cycles, i)
 
