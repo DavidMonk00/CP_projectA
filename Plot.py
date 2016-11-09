@@ -42,7 +42,7 @@ class Plot(object):
 		ax.plot(x[1:],y)
 
 	def plotMethod(self, method, h, steps, true_value=False):
-		x = np.arange(0,h*steps,h)
+		x = np.linspace(0,h*steps,steps)
 		values = self.sp.iterateMethod(method, h, steps)
 		y = values[0]
 		v = values[1]
@@ -50,16 +50,17 @@ class Plot(object):
 		for i in range(len(y)):
 			E.append(((v[i]**2)/2) + 1 - np.cos(y[i]))
 		self.subplots.append(self.fig.add_subplot(self.rows,1,self.row_counter))
-		self.subplots[self.row_counter-1].set_ylabel('Value')
+		#self.subplots[self.row_counter-1].set_ylabel('Value')
 		#self.subplots[self.row_counter-1].plot(x,y)
 		#self.subplots[self.row_counter-1].plot(x,v)
 		self.subplots[self.row_counter-1].plot(x,E)
+		print np.amax(E)
 		if true_value:
 			self.analytical(h,steps)
 		self.row_counter += 1
 
 	def plotDoubleMethod(self, method, h, steps):
-		x = np.arange(0,h*steps,h)
+		x = np.linspace(0,h*steps,steps)
 		y,E = self.dp.iterateMethod(method, h, steps)
 		print "Plotting..."
 		self.subplots.append(self.fig.add_subplot(self.rows,1,self.row_counter))
@@ -71,5 +72,5 @@ class Plot(object):
 
 	def show(self):
 		plt.ticklabel_format(axis='y', style='sci')
-		#plt.ylim([-1,5])
-		plt.show()
+		plt.ylim([0,0.01])
+		#plt.show()
