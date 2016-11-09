@@ -29,11 +29,13 @@ class DoublePendulum(object):
 		print "C complete. Casting to numpy and calculating energy..."
 		y = np.empty(4*steps).reshape(4,steps)
 		E = np.empty(steps)
+		E_error = np.empty(steps)
 		prev = 0
 		for i in range(steps):
-			if (i % (steps/100) == 0):
-				print (float(i)/steps)*100
+			#if (i % (steps/100) == 0):
+		#		print (float(i)/steps)*100
 			for j in range(4):
 				y[j][i] = values[j][i]
-			E[i] = 2*values[0][i]**2 + values[1][i]**2 + 2*values[2][i]**2 + values[3][i]**2 + 2*values[3][i]*values[2][i]*(1-(values[0][i]-values[1][i])/2)
-		return y,E
+			E[i] = 2*values[0][i]**2 + values[1][i]**2 + 2*values[2][i]**2 + values[3][i]**2 + 2*values[3][i]*values[2][i]*(1-((values[0][i]-values[1][i])**2)/2)
+			E_error[i] = np.abs((E[i]-E[0])/E[0])
+		return y,E,E_error

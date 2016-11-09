@@ -61,16 +61,18 @@ class Plot(object):
 
 	def plotDoubleMethod(self, method, h, steps):
 		x = np.linspace(0,h*steps,steps)
-		y,E = self.dp.iterateMethod(method, h, steps)
+		y,E,E_error = self.dp.iterateMethod(method, h, steps)
 		print "Plotting..."
 		self.subplots.append(self.fig.add_subplot(self.rows,1,self.row_counter))
 		self.subplots[self.row_counter-1].set_ylabel('Value')
-		self.subplots[self.row_counter-1].plot(x,y[0])
-		self.subplots[self.row_counter-1].plot(x,y[1])
+		#self.subplots[self.row_counter-1].plot(x,y[0])
+		#self.subplots[self.row_counter-1].plot(x,y[1])
 		#self.subplots[self.row_counter-1].plot(x,E)
+		print np.mean(E_error)
+		self.subplots[self.row_counter-1].plot(x,E_error)
 		self.row_counter += 1
 
 	def show(self):
 		plt.ticklabel_format(axis='y', style='sci')
-		plt.ylim([0,0.01])
-		#plt.show()
+		#plt.ylim([0,0.04])
+		plt.show()

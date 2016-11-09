@@ -33,14 +33,14 @@ def singlePendulum(A, D, cycles, h):
     pt.show()
 
 def main():
-    A, D, R, G = 0.1, 0.2, 1, 0.01
+    A, D, R, G = 0.01, 0.2, 1, 0.0
     cycles = 100
     s = [0.01,0.05,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.5,2,2.5,3]
     t = np.arange(2.9,3,0.01)
     h = 0.05
-    #doublePendulum(A, R, G, cycles, h)
-    for i in t:
-        print i, "  "
-        singlePendulum(A, D, cycles, i)
+    doublePendulum(A, R, G, cycles, h)
+    #for i in t:
+    #    print i, "  "
+    #    singlePendulum(A, D, cycles, i)
 
 main()
