@@ -74,5 +74,5 @@ class Plot(object):
 
 	def show(self):
 		plt.ticklabel_format(axis='y', style='sci')
-		#plt.ylim([0,0.04])
-		plt.show()
+		#plt.ylim([0,0.00011])
+		#plt.show()

@@ -101,7 +101,7 @@ double** leapfrog(double* start, double D, int steps, double h) {
 
 /* Function: rk4
  * ------------------------
- * Implements the Runge-Kuntta 4 method for a single pendulum
+ * Implements the Runge-Kutta 4 method for a single pendulum
  *
  * start:   one-dimensional array of length 2 (position,velocity)
  * D:       damping coefficient
