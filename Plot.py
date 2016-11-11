@@ -62,7 +62,7 @@ class Plot(object):
 	def plotDoubleMethod(self, method, h, steps):
 		x = np.linspace(0,h*steps,steps)
 		y,E,E_error = self.dp.iterateMethod(method, h, steps)
-		print "Plotting..."
+		#print "Plotting..."
 		self.subplots.append(self.fig.add_subplot(self.rows,1,self.row_counter))
 		self.subplots[self.row_counter-1].set_ylabel('Value')
 		#self.subplots[self.row_counter-1].plot(x,y[0])

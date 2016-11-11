@@ -24,9 +24,9 @@ class DoublePendulum(object):
 		ch = ct.c_double(h)
 		method.restype = ct.POINTER(ct.POINTER(ct.c_double))
 		c_start = (ct.c_double*len(self.y_start))(*self.y_start)
-		print "Obtaining values..."
+		#print "Obtaining values..."
 		values = method(c_start, ct.c_double(self.R), ct.c_double(self.G),ct.c_int(steps),ct.c_double(h))
-		print "C complete. Casting to numpy and calculating energy..."
+		#print "C complete. Casting to numpy and calculating energy..."
 		y = np.empty(4*steps).reshape(4,steps)
 		E = np.empty(steps)
 		E_error = np.empty(steps)
