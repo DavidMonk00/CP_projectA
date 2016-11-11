@@ -69,12 +69,13 @@ class Plot(object):
 		#self.subplots[self.row_counter-1].plot(x,y[1])
 		#self.subplots[self.row_counter-1].plot(x,y[2])
 		#self.subplots[self.row_counter-1].plot(x,y[3])
-		self.subplots[self.row_counter-1].plot(x,E)
-		#print np.mean(E_error)
-		#self.subplots[self.row_counter-1].plot(x,E_error)
+		#self.subplots[self.row_counter-1].plot(x,E)
+		print E_error.max()
+		self.subplots[self.row_counter-1].plot(x,E_error)
+		#plt.hist(E_error,np.linspace(0,E_error.max(),100))
 		self.row_counter += 1
 
 	def show(self):
 		plt.ticklabel_format(axis='y', style='sci')
 		#plt.ylim([0,0.00011])
-		#plt.show()
+		plt.show()

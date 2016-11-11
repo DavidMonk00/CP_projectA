@@ -37,5 +37,5 @@ class DoublePendulum(object):
 			for j in range(4):
 				y[j][i] = values[j][i]
 			E[i] = (self.R + 1)*values[0][i]**2 + self.R*values[1][i]**2 + values[2][i]**2 + self.R*(values[2][i]**2 + values[3][i]**2 + values[2][i]*values[3][i]*(2 - (values[0][i]-values[1][i])**2))
-			#E_error[i] = np.abs((E[i]-E[0])/E[0])
+			E_error[i] = np.abs((E[i]-E[0])/E[0])
 		return y,E,E_error
