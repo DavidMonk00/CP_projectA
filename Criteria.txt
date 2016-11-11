@@ -1,0 +1,5 @@
+Criteria for stability test of numerical methods.
+
+For both the undamped pendulum, the energy of the system should remain constant with time. This means that calculating the total energy of the system (potential + kinetic) for each timestep with provide a good test of stability. In order to remove dependecy on g, l etc from the stability test, the relative error in the energy was calculated instead of the absolute energy. This was given by E_error = abs((E[i]-E[0])/E[0])
+
+In the case of a damped pendulum, the total enrgy should decay with time, thus if the energy is greater than the initial energy at any time after t=1/D (to allow for numerical errors at times close to t=0, then the method will be considered unstable.
