@@ -31,7 +31,7 @@ class Plot(object):
 		y = self.sp.error(method, h, steps)
 		self.subplots.append(self.fig.add_subplot(self.rows,1,self.row_counter))
 		self.subplots[self.row_counter-1].set_ylabel('Error')
-		self.subplots[self.row_counter-1].plot(x[1:],y)
+		self.subplots[self.row_counter-1].plot(x,y)
 		self.row_counter += 1
 
 	def stability(self, h, steps):
@@ -50,11 +50,11 @@ class Plot(object):
 		for i in range(len(y)):
 			E.append(((v[i]**2)/2) + 1 - np.cos(y[i]))
 		self.subplots.append(self.fig.add_subplot(self.rows,1,self.row_counter))
-		#self.subplots[self.row_counter-1].set_ylabel('Value')
-		#self.subplots[self.row_counter-1].plot(x,y)
+		self.subplots[self.row_counter-1].set_ylabel('Value')
+		self.subplots[self.row_counter-1].plot(x,y)
 		#self.subplots[self.row_counter-1].plot(x,v)
-		self.subplots[self.row_counter-1].plot(x,E)
-		print np.amax(E)
+		#self.subplots[self.row_counter-1].plot(x,E)
+		#print np.amax(E)
 		if true_value:
 			self.analytical(h,steps)
 		self.row_counter += 1

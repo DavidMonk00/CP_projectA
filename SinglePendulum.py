@@ -27,9 +27,9 @@ class SinglePendulum(object):
 
 	def error(self, method, h, steps):
 		x = np.arange(0,h*steps,h)
-		real = (self.y_start[0]*np.cos(x))[1:]
-		y = method(self, h, steps)
-		return np.abs(y[1:]-real)
+		real = (self.y_start[0]*np.cos(x))
+		y = self.iterateMethod(method, h, steps)
+		return np.abs(y[0]-real)
 
 	def stability(self, h, steps):
 		e = self.error(h,steps)
