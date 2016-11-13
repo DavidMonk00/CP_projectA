@@ -24,7 +24,7 @@ def singlePendulum(A, D, cycles, h):
     ct.cdll.LoadLibrary("./singlependulum.so")
     csa = ct.CDLL("./singlependulum.so")
     start = [A,0.0]
-    pt = Plot.Plot(D,start,1) #Final argument is number of subplots. chnage to 2 if Error is also plotted.
+    pt = Plot.Plot(D,start,1) #Final argument is number of subplots. change to 2 if Error is also plotted.
     steps = int(cycles*2*np.pi/h)
     method = csa.eulerForward  #Select algorithm from eulerForward, leapfrog, rk4, implicitEuler
     pt.plotMethod(method,h,steps)
