@@ -52,7 +52,7 @@ class Plot(object):
 			E[i] = ((v[i]**2)/2) + 1 - np.cos(y[i])
 			E_error[i] = np.abs((E[i] - E[0])/E[0])
 		self.subplots.append(self.fig.add_subplot(self.rows,1,self.row_counter))
-		self.subplots[self.row_counter-1].set_ylabel('Relative Energy Error')
+		self.subplots[self.row_counter-1].set_ylabel('Amplitude')
 		self.subplots[self.row_counter-1].plot(x,y)
 		#self.subplots[self.row_counter-1].plot(x,v)
 		#self.subplots[self.row_counter-1].plot(x,E_error)
