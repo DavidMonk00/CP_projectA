@@ -54,7 +54,7 @@ class Plot(object):
 		self.subplots[self.row_counter-1].plot(x,y)
 		#self.subplots[self.row_counter-1].plot(x,v)
 		#self.subplots[self.row_counter-1].plot(x,E)
-		#print np.amax(E)
+		print np.amax(E)
 		if true_value:
 			self.analytical(h,steps)
 		self.row_counter += 1
