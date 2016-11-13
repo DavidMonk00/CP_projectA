@@ -34,13 +34,6 @@ class Plot(object):
 		self.subplots[self.row_counter-1].plot(x,y)
 		self.row_counter += 1
 
-	def stability(self, h, steps):
-		x = np.arange(0,h*steps,h)
-		y = self.sp.stability(h, steps)
-		ax = self.fig.add_subplot(self.rows,1,self.row_counter)
-		self.row_counter += 1
-		ax.plot(x[1:],y)
-
 	def plotMethod(self, method, h, steps, true_value=False):
 		x = np.linspace(0,h*steps,steps)
 		values = self.sp.iterateMethod(method, h, steps)
@@ -72,12 +65,10 @@ class Plot(object):
 		#self.subplots[self.row_counter-1].plot(x,y[2])
 		#self.subplots[self.row_counter-1].plot(x,y[3])
 		#self.subplots[self.row_counter-1].plot(x,E)
-		#print self.R, np.mean(E_error)
 		#self.subplots[self.row_counter-1].plot(x,E_error)
 		#plt.hist(E_error,np.linspace(0,E_error.max(),100))
 		self.row_counter += 1
 
 	def show(self):
 		plt.ticklabel_format(axis='y', style='sci')
-		#plt.ylim([0,0.00011])
 		plt.show()

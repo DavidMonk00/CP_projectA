@@ -32,8 +32,6 @@ class DoublePendulum(object):
 		E_error = np.empty(steps)
 		prev = 0
 		for i in range(steps):
-			#if (i % (steps/100) == 0):
-		#		print (float(i)/steps)*100
 			for j in range(4):
 				y[j][i] = values[j][i]
 			E[i] = (self.R + 1)*values[0][i]**2 + self.R*values[1][i]**2 + values[2][i]**2 + self.R*(values[2][i]**2 + values[3][i]**2 + values[2][i]*values[3][i]*(2 - (values[0][i]-values[1][i])**2))
