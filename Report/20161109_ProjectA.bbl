@@ -1,0 +1,20 @@
+\begin{thebibliography}{1}
+
+\bibitem{birdsall2004plasma}
+Charles~K Birdsall and A~Bruce Langdon.
+\newblock {\em Plasma physics via computer simulation}.
+\newblock CRC Press, 2004.
+
+\bibitem{butcher1987numerical}
+John~Charles Butcher.
+\newblock {\em The numerical analysis of ordinary differential equations:
+  Runge-Kutta and general linear methods}.
+\newblock Wiley-Interscience, 1987.
+
+\bibitem{jameson1981numerical}
+Antony Jameson, Wolfgang Schmidt, Eli Turkel, et~al.
+\newblock Numerical solutions of the euler equations by finite volume methods
+  using runge-kutta time-stepping schemes.
+\newblock {\em AIAA paper}, 1259:1981, 1981.
+
+\end{thebibliography}
