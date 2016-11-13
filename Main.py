@@ -26,17 +26,17 @@ def singlePendulum(A, D, cycles, h):
     ct.cdll.LoadLibrary("./singlependulum.so")
     csa = ct.CDLL("./singlependulum.so")
     start = [A,0.0]
-    pt = Plot.Plot(D,start,2)
+    pt = Plot.Plot(D,start,1)
     steps = int(cycles*2*np.pi/h)
-    method = csa.implicitEuler
-    pt.plotMethod(method,h,steps,True)
-    pt.error(method,h,steps)
+    method = csa.eulerForward
+    pt.plotMethod(method,h,steps)
+    #pt.error(method,h,steps)
     #pt.plotMethod(csa.leapfrog,h,steps)
     pt.show()
 
 def main():
-    A, D, R, G = 0.1, 0.0, 100, 1.0
-    cycles = 30
+    A, D, R, G = 0.1, 0.2, 100, 1.0
+    cycles = 20
     s = [0.01,0.05,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.5,2,2.5,3]
     t = np.arange(2.9,3,0.01)
     h = 0.01
