@@ -36,10 +36,10 @@ def singlePendulum(A, D, cycles, h):
 
 def main():
     A, D, R, G = 0.01, 0.0, 1, 0.0
-    cycles = 1000
+    cycles = 10000
     s = [0.01,0.05,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.5,2,2.5,3]
     t = np.arange(2.9,3,0.01)
-    h = 0.1
+    h = 0.8
     Rlist = np.logspace(-3,3,7)
     #for i in Rlist:
     #doublePendulum(A, R, G, cycles, h)
