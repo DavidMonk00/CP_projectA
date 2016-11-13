@@ -66,13 +66,13 @@ class Plot(object):
 		y,E,E_error = self.dp.iterateMethod(method, h, steps)
 		print "Plotting..."
 		self.subplots.append(self.fig.add_subplot(self.rows,1,self.row_counter))
-		self.subplots[self.row_counter-1].set_ylabel('Value')
+		self.subplots[self.row_counter-1].set_ylabel('Amplitude')
 		self.subplots[self.row_counter-1].plot(x,y[0])
 		self.subplots[self.row_counter-1].plot(x,y[1])
 		#self.subplots[self.row_counter-1].plot(x,y[2])
 		#self.subplots[self.row_counter-1].plot(x,y[3])
 		#self.subplots[self.row_counter-1].plot(x,E)
-		print E_error.max()
+		#print self.R, np.mean(E_error)
 		#self.subplots[self.row_counter-1].plot(x,E_error)
 		#plt.hist(E_error,np.linspace(0,E_error.max(),100))
 		self.row_counter += 1
