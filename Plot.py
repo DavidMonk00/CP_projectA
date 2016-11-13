@@ -45,7 +45,7 @@ class Plot(object):
 			E[i] = ((v[i]**2)/2) + 1 - np.cos(y[i])
 			E_error[i] = np.abs((E[i] - E[0])/E[0])
 		self.subplots.append(self.fig.add_subplot(self.rows,1,self.row_counter))
-		#self.subplots[self.row_counter-1].set_ylabel('Relative Energy Error')
+		self.subplots[self.row_counter-1].set_ylabel('Relative Energy Error')
 		self.subplots[self.row_counter-1].plot(x,y)
 		#self.subplots[self.row_counter-1].plot(x,v)
 		#self.subplots[self.row_counter-1].plot(x,E_error)
@@ -59,12 +59,11 @@ class Plot(object):
 		print "Plotting..."
 		self.subplots.append(self.fig.add_subplot(self.rows,1,self.row_counter))
 		self.subplots[self.row_counter-1].set_ylabel('Relative Energy Error')
-		#self.subplots[self.row_counter-1].plot(x,y[0])
-		#self.subplots[self.row_counter-1].plot(x,y[1])
+		self.subplots[self.row_counter-1].plot(x,y[0])
+		self.subplots[self.row_counter-1].plot(x,y[1])
 		#self.subplots[self.row_counter-1].plot(x,y[2])
 		#self.subplots[self.row_counter-1].plot(x,y[3])
-		#self.subplots[self.row_counter-1].plot(x,E)
-		self.subplots[self.row_counter-1].plot(x,E_error)
+		#self.subplots[self.row_counter-1].plot(x,E_error)
 		#plt.hist(E_error,np.linspace(0,E_error.max(),100))
 		self.row_counter += 1
 
